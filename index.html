@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call of War Group Verification</title>
+    <style>
+        /* CSS ပိုင်း - Responsive UI Layout */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212; 
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            /* Camo နောက်ခံအမှောင် */
+            background-image: 
+                linear-gradient(45deg, #161616 25%, transparent 25%),
+                linear-gradient(-45deg, #161616 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #161616 75%),
+                linear-gradient(-45deg, transparent 75%, #161616 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        .container {
+            background-color: #1a1a1a; 
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
+            max-width: 900px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            border: 3px solid #D9A036;
+            box-sizing: border-box;
+        }
+
+        h1.main-title {
+            grid-column: 1 / -1;
+            margin: 0 0 5px 0;
+            color: #D9A036; 
+            font-weight: 800;
+            font-size: 26px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        p.subtitle {
+            grid-column: 1 / -1;
+            margin: 0 0 20px 0;
+            color: #aaaaaa;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* ဘယ်ဘက်ခြမ်း - Form */
+        .form-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        h2.panel-title {
+            color: #D9A036;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #cccccc;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 14px 14px 45px; 
+            background-color: #2a2a2a;
+            border: 2px solid #D9A036;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .input-icon {
+            position: absolute;
+            top: 50%;
+            left: 14px;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            fill: #D9A036;
+        }
+
+        input[type="file"] {
+            display: none; 
+        }
+
+        .file-upload-wrapper {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .custom-file-upload {
+            background-color: #2a2a2a;
+            border: 2px solid #D9A036;
+            border-radius: 6px;
+            color: #ffffff;
+            padding: 14px;
+            font-size: 15px;
+            box-sizing: border-box;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .select-file-btn {
+            background-color: #D9A036;
+            color: #121212;
+            border: none;
+            border-radius: 6px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button.submit-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #D9A036;
+            color: #121212;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button.submit-btn:hover {
+            background-color: #ffffff;
+        }
+
+        #statusMessage {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* ညာဘက်ခြမ်း - Сည်းကမ်းချက်များ */
+        .rules-panel {
+            background-color: #161616;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #D9A036;
+        }
+
+        .rules-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .rule-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #cccccc;
+            font-size: 15px;
+        }
+
+        .rule-icon {
+            width: 24px;
+            height: 24px;
+            fill: #D9A036;
+            flex-shrink: 0;
+        }
+
+        /* ဖုန်း screen size တွင် ပုံစံမပျက်အောင် ညှိထားခြင်း */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+                gap: 25px;
+            }
+            h1.main-title {
+                font-size: 22px;
+            }
+            .file-upload-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="main-title">Call of War - Group Verification</h1>
+        <p class="subtitle">ဂရုထဲသို့ ဝင်ရောက်ရန်အတွက် အကောင့်စစ်ဆေးခြင်း နေရာဖြစ်ပါသည်</p>
+        
+        <!-- ဘယ်ဘက်ခြမ်း: Form -->
+        <div class="form-panel">
+            <h2 class="panel-title">
+                <svg class="input-icon" viewBox="0 0 100 100" style="width:20px;height:20px;position:static;transform:none;"><path d="M50 0C32.8 0 18.8 14 18.8 31.2C18.8 48.5 32.8 62.5 50 62.5C67.2 62.5 81.2 48.5 81.2 31.2C81.2 14 67.2 0 50 0ZM50 68.8C25 68.8 0 81.2 0 93.8V100H100V93.8C100 81.2 75 68.8 50 68.8Z"/></svg> 
+                အချက်အလက် ဖြည့်သွင်းရန်
+            </h2>
+            
+            <form id="uploadForm">
+                <!-- Telegram Username -->
+                <div class="form-group">
+                    <label for="tgUsername">Telegram Username</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 100 100"><path d="M50 0C32.8 0 18.8 14 18.8 31.2C18.8 48.5 32.8 62.5 50 62.5C67.2 62.5 81.2 48.5 81.2 31.2C81.2 14 67.2 0 50 0ZM50 68.8C25 68.8 0 81.2 0 93.8V100H100V93.8C100 81.2 75 68.8 50 68.8Z"/></svg>
+                        <input type="text" id="tgUsername" placeholder="ဥပမာ - @thomas" required>
+                    </div>
+                </div>
+                
+                <!-- Game Profile Screenshot -->
+                <div class="form-group">
+                    <label for="screenshot">ဂိမ်း Profile Screenshot</label>
+                    <div class="file-upload-wrapper">
+                        <label for="screenshot" class="custom-file-upload">
+                            <svg class="rule-icon" viewBox="0 0 100 100" style="width:18px;height:18px;"><path d="M10 10H90V80H10V10ZM100 0V90H0V0H100ZM50 25L25 50L50 75L75 50L50 25Z"/></svg>
+                            <span id="file-name">ဂိမ်းပုံ ရွေးချယ်ထားခြင်းမရှိပါ</span>
+                        </label>
+                        <input type="file" id="screenshot" accept="image/*" required>
+                        <button type="button" class="select-file-btn" onclick="document.getElementById('screenshot').click()">ပုံရွေးရန်</button>
+                    </div>
+                </div>
+
+                <!-- TikTok Profile Screenshot (ထပ်တိုးထားသည့်နေရာ) -->
+                <div class="form-group">
+                    <label for="tiktokScreenshot">TikTok Profile Screenshot</label>
+                    <div class="file-upload-wrapper">
+                        <label for="tiktokScreenshot" class="custom-file-upload">
+                            <svg class="rule-icon" viewBox="0 0 100 100" style="width:18px;height:18px;"><path d="M10 10H90V80H10V10ZM100 0V90H0V0H100ZM50 25L25 50L50 75L75 50L50 25Z"/></svg>
+                            <span id="tiktok-file-name">TikTok ပုံ ရွေးချယ်ထားခြင်းမရှိပါ</span>
+                        </label>
+                        <input type="file" id="tiktokScreenshot" accept="image/*" required>
+                        <button type="button" class="select-file-btn" onclick="document.getElementById('tiktokScreenshot').click()">ပုံရွေးရန်</button>
+                    </div>
+                </div>
+                
+                <button type="submit" id="submitBtn" class="submit-btn">
+                    <svg viewBox="0 0 100 100" style="width:20px;height:20px;fill:#121212;"><rect x="10" y="60" width="80" height="20" rx="5"/><rect x="25" y="40" width="50" height="20" rx="5"/><rect x="40" y="20" width="20" height="20" rx="5"/></svg> 
+                    Admin ထံ တင်ပြမည်
+                </button>
+            </form>
+            <div id="statusMessage"></div>
+        </div>
+
+        <!-- ညာဘက်ခြမ်း: စည်းကမ်းချက်များ -->
+        <div class="rules-panel">
+            <h2 class="panel-title">
+                <svg class="input-icon" viewBox="0 0 100 100" style="width:20px;height:20px;position:static;transform:none;"><path d="M10 10H90V20H10V10ZM10 40H90V50H10V40ZM10 70H90V80H10V70ZM0 0V100H100V0H0Z"/></svg> 
+                ဂရုတွင်း စည်းကမ်းချက်များ
+            </h2>
+            <ul class="rules-list">
+                <li class="rule-item"><svg class="rule-icon" viewBox="0 0 100 100"><path d="M50 0L64.2 32.8L100 37.9L74.1 63.9L80.2 100L50 82.8L19.8 100L25.9 63.9L0 37.9L35.8 32.8L50 0Z"/><rect x="25" y="55" width="50" height="20" rx="5"/></svg> အကောင့်ခွဲ (Multi-account) ဆော့သူများ ပေးမဝင်ပါ။</li>
+                <li class="rule-item"><svg class="rule-icon" viewBox="0 0 100 100"><rect x="10" y="60" width="80" height="20" rx="5"/><rect x="25" y="40" width="50" height="20" rx="5"/><rect x="40" y="20" width="20" height="20" rx="5"/></svg> ဆဲဆိုခြင်းမပြုရ၊ ဂိမ်းဗျူဟာအကြောင်းပဲ ပြောပါ။</li>
+                <li class="rule-item"><svg class="rule-icon" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke-width="10"/><path d="M50 10L61.8 35.3L90 39.1L70 58.7L75.3 85.9L50 72.8L24.7 85.9L30 58.7L10 39.1L38.2 35.3L50 10Z"/></svg> မန်ဘာအချင်းချင်း ရိုင်းပင်းကူညီပြီး လေးစားပါ။</li>
+                <li class="rule-item"><svg class="rule-icon" viewBox="0 0 100 100"><path d="M50 0L60 20V80L50 100L40 80V20L50 0Z"/></svg> Admin များ ချမှတ်ထားသော စည်းကမ်းကို လိုက်နာပါ။</li>
+                <li class="rule-item"><svg class="rule-icon" viewBox="0 0 100 100"><circle cx="50" cy="40" r="30"/><path d="M50 100L20 60H80L50 100Z"/></svg> ဂရု၏ လုံခြုံရေးနှင့် စည်းလုံးမှုကို ထိန်းသိမ်းပါ။</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- JavaScript ပိုင်း -->
+    <script>
+        const BOT_TOKEN = "8859777568:AAHU8Rq2G6bT2RYjIF31nQFJNMXzFM7FiLw";       
+        const ADMIN_CHAT_ID = "-1004356874024";   
+
+        // ဂိမ်းပုံ ရွေးချယ်မှု ပြသရန်
+        document.getElementById('screenshot').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : "ဂိမ်းပုံ ရွေးချယ်ထားခြင်းမရှိပါ";
+            document.getElementById('file-name').innerText = fileName;
+        });
+
+        // TikTok ပုံ ရွေးချယ်မှု ပြသရန်
+        document.getElementById('tiktokScreenshot').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : "TikTok ပုံ ရွေးချယ်ထားခြင်းမရှိပါ";
+            document.getElementById('tiktok-file-name').innerText = fileName;
+        });
+
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            const submitBtn = document.getElementById('submitBtn');
+            const statusMessage = document.getElementById('statusMessage');
+            const tgUsername = document.getElementById('tgUsername').value.replace('@', ''); 
+            
+            const gameFile = document.getElementById('screenshot').files[0];
+            const tiktokFile = document.getElementById('tiktokScreenshot').files[0];
+
+            if(ADMIN_CHAT_ID === "YOUR_GROUP_ID_HERE") {
+                alert("ကျေးဇူးပြု၍ ကုဒ်ထဲတွင် Group ID အရင်ထည့်ပေးပါဗျာ။");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = "ပို့နေပါသည်..."; 
+            statusMessage.style.color = "#ff9800";
+            statusMessage.innerText = "ပုံများကို တစ်ပုံချင်းစီ ပို့နေပါသည်၊ ခေတ္တစောင့်ဆိုင်းပါ...";
+
+            // ၁။ ပထမဦးစွာ ဂိမ်း Profile ပုံကို အဓိကစာသား၊ ခလုတ်တို့နှင့်အတူ ပို့မည်
+            const formGame = new FormData();
+            formGame.append('chat_id', ADMIN_CHAT_ID);
+            formGame.append('photo', gameFile);
+            
+            const caption = `**အကောင့်စစ်ဆေးရန် လျှောက်လွှာအသစ်**\n\n👤 Telegram: @${tgUsername}\n\n(ဂိမ်း Profile စကရင်ရှော့ပုံ ဖြစ်ပါသည်)`;
+            formGame.append('caption', caption);
+            formGame.append('parse_mode', 'Markdown');
+
+            const inlineKeyboard = {
+                inline_keyboard: [[{ text: "စကားပြောရန်", url: `https://t.me/${tgUsername}` }]]
+            };
+            formGame.append('reply_markup', JSON.stringify(inlineKeyboard));
+
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                method: 'POST',
+                body: formGame
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    // ၂။ ပထမပုံပို့ပြီးပါက ဒုတိယမြောက် TikTok ပုံကို ဆက်ပို့မည်
+                    const formTiktok = new FormData();
+                    formTiktok.append('chat_id', ADMIN_CHAT_ID);
+                    formTiktok.append('photo', tiktokFile);
+                    formTiktok.append('caption', `👤 @${tgUsername} ၏ TikTok Profile စကရင်ရှော့ပုံ ဖြစ်ပါသည်`);
+
+                    return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                        method: 'POST',
+                        body: formTiktok
+                    });
+                } else {
+                    throw new Error("Game photo failed");
+                }
+            })
+            .then(res => res.json())
+            .then(data2 => {
+                if(data2.ok) {
+                    statusMessage.style.color = "#4CAF50";
+                    statusMessage.innerText = "အောင်မြင်စွာ ပို့ပြီးပါပြီ။ Admin က စစ်ဆေးပြီး ဆက်သွယ်လာသည်အထိ စောင့်ပေးပါ။";
+                    document.getElementById('uploadForm').reset(); 
+                    document.getElementById('file-name').innerText = "ဂိမ်းပုံ ရွေးချယ်ထားခြင်းမရှိပါ"; 
+                    document.getElementById('tiktok-file-name').innerText = "TikTok ပုံ ရွေးချယ်ထားခြင်းမရှိပါ"; 
+                } else {
+                    throw new Error("TikTok photo failed");
+                }
+            })
+            .catch(error => {
+                statusMessage.style.color = "#f44336";
+                statusMessage.innerText = "ပို့မရပါ၊ Group ID မှားယွင်းနေခြင်း သို့မဟုတ် လိုင်းမကောင်းခြင်း ဖြစ်နိုင်ပါသည်။";
+                console.error(error);
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<svg viewBox="0 0 100 100" style="width:20px;height:20px;fill:#121212;"><rect x="10" y="60" width="80" height="20" rx="5"/><rect x="25" y="40" width="50" height="20" rx="5"/><rect x="40" y="20" width="20" height="20" rx="5"/></svg> Admin ထံ တင်ပြမည်';
+            });
+        });
+    </script>
+</body>
+                      </html>
